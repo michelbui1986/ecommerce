@@ -1,6 +1,10 @@
 import React from "react";
 import { Divider } from "@mui/material";
 import "./cart.css";
+
+
+
+
 const Cart = () => {
   return (
     <div className="cart_section">

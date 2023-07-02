@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import { Divider } from "@mui/material";
 import { products } from "./productdata";
 import "./slide.css";
+import { NavLink } from "react-router-dom";
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -23,6 +24,9 @@ const responsive = {
     items: 1,
   },
 };
+// const senddata = () => {
+//   navigation("/",{state:e.id})
+// }
 
 const Slide = ({ title }) => {
   return (
@@ -47,17 +51,20 @@ const Slide = ({ title }) => {
         itemClass="carousel-item-padding-40-px"
         containerClass="carousel-container">
         {products.map((e) => {
+          console.log(e)
           return (
-            <div className="products_items">
-              <div className="product_img">
-                <img src={e.url} alt="product" />
+            <NavLink to={`/getproductsone/${e.id}`}>
+              <div className="products_items">
+                <div className="product_img">
+                  <img src={e.url} alt="product" />
+                </div>
+                <p className="products_name">{e.title.shortTitle}</p>
+                <p className="products_offer" style={{ color: "#  007185" }}>
+                  {e.discount}
+                </p>
+                <p className="products_explore">{e.tagline}</p>
               </div>
-              <p className="products_name">{e.title.shortTitle}</p>
-              <p className="products_offer" style={{ color: "#  007185" }}>
-                {e.discount}
-              </p>
-              <p className="products_explore">{e.tagline}</p>
-            </div>
+            </NavLink>
           );
         })}
       </Carousel>
