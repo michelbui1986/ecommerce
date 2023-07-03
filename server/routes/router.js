@@ -3,11 +3,8 @@ const router = new express.Router();
 const Products = require("../models/productsSchema");
 // const products = require("../constant/productsdata");
 const USER = require("../models/usersSchema");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 // const authenticate = require("../middleware/authenticate");
-
-
-
 
 // get the products data
 router.get("/getproducts", async (req, res) => {
@@ -19,7 +16,6 @@ router.get("/getproducts", async (req, res) => {
     console.log(error.message);
   }
 });
-
 
 // register data
 router.post("/register", async (req, res) => {
@@ -59,6 +55,42 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// login user api
+router.post("/login", async (req, res) => {
+  // console.log(req.body);
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400).json({ error: "fill the details" });
+  }
+
+  try {
+    const userLogin = await USER.findOne({ email: email });
+    console.log(userLogin);
+    if (userLogin) {
+      const isMatch = await bcrypt.compare(password, userLogin.password);
+      console.log(isMatch);
+
+      if (!isMatch) {
+        res.status(400).json({ error: "invalid crediential pass" });
+      } else {
+        const token = await userLogin.generateAuthToken();
+        console.log(token);
+
+        res.cookie("eccomerce", token, {
+          expires: new Date(Date.now() + 2589000),
+          httpOnly: true,
+        });
+        res.status(201).json(userLogin);
+      }
+    } else {
+      res.status(400).json({ error: "user not exist" });
+    }
+  } catch (error) {
+    res.status(400).json({ error: "invalid crediential pass" });
+    console.log("error the bhai catch ma for login time" + error.message);
+  }
+});
 
 // get individual data
 router.get("/getproductsone/:id", async (req, res) => {

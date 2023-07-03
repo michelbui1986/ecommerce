@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secretKey = process.env.KEY
-
+const secretKey = process.env.KEY;
 
 // console.log("secretKey", secretKey);
 
@@ -30,7 +29,7 @@ const userSchema = new mongoose.Schema({
   tokens: [{ token: { type: String, required: true } }],
   carts: Array,
 });
-// password hasing 
+// password hasing
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await bcryptjs.hash(this.password, 12);
@@ -42,19 +41,18 @@ userSchema.pre("save", async function (next) {
 // Token generate
 userSchema.methods.generateAuthToken = async function () {
   try {
-     if (!secretKey) {
-       throw new Error("Secret key is missing");
-     }
-    let token = jwt.sign({ _id: this._id }, secretKey )
+    if (!secretKey) {
+      throw new Error("Secret key is missing");
+    }
+    let token = jwt.sign({ _id: this._id }, secretKey);
     this.tokens = this.tokens.concat({ token: token });
-    await this.save()
+    await this.save();
     // console.log(this.tokens)
     return token;
   } catch (error) {
     console.log(error);
-    
   }
-}
+};
 // add to cart
 userSchema.methods.addCartData = async function (cart) {
   try {
@@ -66,9 +64,6 @@ userSchema.methods.addCartData = async function (cart) {
   }
 };
 
-
-
 const USER = new mongoose.model("USER", userSchema);
-
 
 module.exports = USER;
