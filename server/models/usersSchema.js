@@ -53,7 +53,7 @@ userSchema.methods.generateAuthToken = async function () {
     console.log(error);
   }
 };
-// add to cart
+// add to cart data
 userSchema.methods.addCartData = async function (cart) {
   try {
     this.carts = this.carts.concat(cart);

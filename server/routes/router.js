@@ -4,7 +4,7 @@ const Products = require("../models/productsSchema");
 // const products = require("../constant/productsdata");
 const USER = require("../models/usersSchema");
 const bcrypt = require("bcryptjs");
-// const authenticate = require("../middleware/authenticate");
+const authenticate = require("../middleware/authenticate");
 
 // get the products data
 router.get("/getproducts", async (req, res) => {
@@ -88,9 +88,36 @@ router.post("/login", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error: "invalid crediential pass" });
-    console.log("error the bhai catch ma for login time" + error.message);
+    console.log("error login time" + error.message);
   }
 });
+
+// adding the data into cart
+
+router.post("/addcart/:id", authenticate, async (req, res) => {
+  try {
+    // console.log("perfect 6");
+    const { id } = req.params;
+    const cart = await Products.findOne({ id: id });
+    // console.log(cart + "cart value");
+    const UserContact = await USER.findOne({ _id: req.userID });
+    // console.log(UserContact);
+
+    if (UserContact) {
+      const cartData = await UserContact.addCartData(cart);
+      await UserContact.save();
+      // console.log(cartData);
+      res.status(201).json(UserContact);
+      console.log('Success')
+    } else {
+      res.status(401).json({ error: "invalid user" });
+    }
+  } catch (error) {
+    res.status(401).json({ error: "invalid user" });
+  }
+});
+
+
 
 // get individual data
 router.get("/getproductsone/:id", async (req, res) => {

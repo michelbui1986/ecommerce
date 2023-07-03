@@ -33,29 +33,32 @@ const Cart = () => {
   let year = date.getFullYear();
 
   // add cart fucntion
-  const addToCard = async (id) => {
-    // const token = document.cookie.split("=")[1];
-    // console.log("print token", document.cookie);
+const addToCart = async (id) => {
+  try {
     const checkResult = await fetch(`http://localhost:8005/addcart/${id}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ inddata }),
       credentials: "include",
     });
-    const data1 = await checkResult.json();
-    console.log(data1 + " frontend data");
-    if (checkResult.status === 401 || !data1) {
+
+    if (checkResult.status === 401) {
       console.log("user invalid");
     } else {
-      alert("data add in your card");
+      const data1 = await checkResult.json();
+      console.log(data1 + " frontend data");
+      alert("data added to your cart");
       // history("/buynow");
       // setAccount(data1);
     }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
     <div className="cart_section">
       {inddata && Object.keys(inddata).length && (
@@ -65,7 +68,7 @@ const Cart = () => {
             <div className="cart_btn">
               <button
                 className="cart_btn1"
-                onClick={() => addToCard(inddata.id)}>
+                onClick={() => addToCart(inddata.id)}>
                 Add to Cart
               </button>
               <button className="cart_btn1">Buy now</button>
