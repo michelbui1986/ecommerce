@@ -1,9 +1,33 @@
 import React, { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 
-const Right = () => {
+const Right = ({ items }) => {
+  // console.log(items);
+  const [val, setVal] = useState(false);
+
+  const [price, setPrice] = useState(0);
+
+  const history = useNavigate();
+
+  useEffect(() => {
+    totalAmount();
+  }, [items]);
+
+  const totalAmount = () => {
+    let price = 0;
+    items.map((item) => {
+      price += item.price.cost;
+    });
+    setPrice(price);
+  };
+
+  const proceesby = () => {
+    alert("Your Order is Confirmed");
+    history.push("/");
+  };
+
   return (
     <div className="right_buy">
       <img
@@ -19,15 +43,17 @@ const Right = () => {
           </span>
         </p>
         <h3>
-          Subtotal 3 items: <span style={{ fontWeight: "700" }}> 5000.00</span>
+          Subtotal ({items.length} items):{" "}
+          <span style={{ fontWeight: "700" }}> €{price}.00</span>
         </h3>
-        <button className="rightbuy_btn">
+        <button className="rightbuy_btn" onClick={proceesby}>
           Proceed to Buy
         </button>
-        <div className="emi" >
+        <div className="emi" onClick={() => setVal(!val)}>
           Emi available
+          {!val ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         </div>
-        <span >
+        <span className={val ? "show" : "hide"}>
           {" "}
           Your order qualifies for EMI with valid credit cards (not available on
           purchase of Gold, Jewelry, Gift cards and Amazon pay balance top up).

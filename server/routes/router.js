@@ -78,7 +78,6 @@ router.post("/login", async (req, res) => {
         console.log(token);
 
         res.cookie("eccomerce", token, {
-          expires: new Date(Date.now() + 2589000),
           httpOnly: true,
         });
         res.status(201).json(userLogin);
@@ -108,7 +107,7 @@ router.post("/addcart/:id", authenticate, async (req, res) => {
       await UserContact.save();
       // console.log(cartData);
       res.status(201).json(UserContact);
-      console.log('Success')
+      console.log("Success");
     } else {
       res.status(401).json({ error: "invalid user" });
     }
@@ -117,7 +116,16 @@ router.post("/addcart/:id", authenticate, async (req, res) => {
   }
 });
 
+// get cart details
 
+router.get("/cartdetails", authenticate, async (req, res) => {
+  try {
+    const buyUser = await USER.findOne({ _id: req.userID });
+    res.status(201).json(buyUser);
+  } catch (error) {
+    console.log("error: ", error);
+  }
+});
 
 // get individual data
 router.get("/getproductsone/:id", async (req, res) => {
@@ -131,6 +139,25 @@ router.get("/getproductsone/:id", async (req, res) => {
     res.status(201).json(individual);
   } catch (error) {
     res.status(400).json(error.message);
+  }
+});
+
+// remove iteam from the cart
+
+router.get("/remove/:id", authenticate, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    req.rootUser.carts = req.rootUser.carts.filter((cruval) => {
+      return cruval.id != id;
+    });
+
+    req.rootUser.save();
+    res.status(201).json(req.rootUser);
+    console.log("item remove");
+  } catch (error) {
+    console.log(error + "jwt provide then remove");
+    res.status(400).json(error);
   }
 });
 

@@ -3,9 +3,12 @@ import React, { useEffect, useState, useContext } from "react";
 import { Divider } from "@mui/material";
 import "./cart.css";
 import { useParams, useNavigate } from "react-router-dom";
+import { LoginContext } from "../context/ContextProvider";
 
 const Cart = () => {
   const { id } = useParams("");
+  const history = useNavigate("")
+  const {account,setAccount} =  useContext(LoginContext)
   const [inddata, setIndedata] = useState({});
   // console.log("indata:",inddata);
 
@@ -49,10 +52,10 @@ const addToCart = async (id) => {
       console.log("user invalid");
     } else {
       const data1 = await checkResult.json();
-      console.log(data1 + " frontend data");
+      console.log('test',data1," frontend data");
       alert("data added to your cart");
-      // history("/buynow");
-      // setAccount(data1);
+      history("/buynow");
+      setAccount(data1);
     }
   } catch (error) {
     console.log(error);

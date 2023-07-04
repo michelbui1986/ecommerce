@@ -1,17 +1,32 @@
 import React from "react";
+import { useEffect, useState } from "react";
 
-const SubTotal = () => {
+const Subtotal = ({ items }) => {
+  const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    totalAmount();
+  }, [items]);
+
+  const totalAmount = () => {
+    let price = 0;
+    items.map((item) => {
+      price += item.price.cost;
+    });
+    setPrice(price);
+  };
+
   return (
     <div className="sub_item">
       <h3>
-        Subtotal 3 items:
+        Subtotal ({items.length} items):
         <strong style={{ fontWeight: "700", color: "#111" }}>
           {" "}
-          5000.00
+          €{price}.00
         </strong>
       </h3>
     </div>
   );
 };
 
-export default SubTotal;
+export default Subtotal;
