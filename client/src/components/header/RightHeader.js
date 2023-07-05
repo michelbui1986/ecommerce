@@ -1,26 +1,26 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
-import Badge from "@mui/material/Badge";
+// import Badge from "@mui/material/Badge";
 import { NavLink } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { LoginContext } from "../context/ContextProvider";
-import { makeStyles } from "@material-ui/core";
+// import { makeStyles } from "@material-ui/core";
 import "./rightheader.css";
 import { Divider } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const usestyle = makeStyles({
-  component: {
-    marginTop: 10,
-    marginRight: "-50px",
-    width: "300px",
-    padding: 50,
-    height: "300px",
-  },
-});
+// const usestyle = makeStyles({
+//   component: {
+//     marginTop: 10,
+//     marginRight: "-50px",
+//     width: "300px",
+//     padding: 50,
+//     height: "300px",
+//   },
+// });
 
 const RightHeader = ({ userlog, logclose }) => {
-  const imgd = "/india.png";
+  const imgd = "/france.png";
 
   const { account, setAccount } = useContext(LoginContext);
 
