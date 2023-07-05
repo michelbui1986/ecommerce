@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({ error: "fill the details" });
+   return res.status(400).json({ error: "fill the details" });
   }
 
   try {

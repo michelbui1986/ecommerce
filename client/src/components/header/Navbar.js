@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./navbar.css";
-// import SearchIcon from "@mui/icons-material/Search";
+import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Avatar from "@mui/material/Avatar";
@@ -142,7 +142,7 @@ const Navbar = () => {
           </IconButton>
           {/* here define the right header */}
           <Drawer open={dropen} onClose={handleClosedr}>
-            <RightHeader logclose={handleClosedr} />
+            <RightHeader logclose={logoutuser} />
           </Drawer>
           <div className="navlogo">
             <NavLink to="/">

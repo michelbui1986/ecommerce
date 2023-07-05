@@ -9,8 +9,8 @@ export const products = [
       longTitle: "Pigeon FAVOURITE Electric Kettle  (1.5 L, Silver, Black)",
     },
     price: {
-      mrp: 1195,
-      cost: 625,
+      mrp: 119,
+      cost: 62,
       discount: "47%",
     },
     description:
@@ -28,8 +28,8 @@ export const products = [
       longTitle: "Flipkart SmartBuy Sandwich 01 Grill  (Black)",
     },
     price: {
-      mrp: 1499,
-      cost: 899,
+      mrp: 149,
+      cost: 89,
       discount: "40%",
     },
     description:
@@ -48,8 +48,8 @@ export const products = [
         "AJRO DEAL New Adjustable Single Resistance Tube (Multicolor) Resistance Tube  (Multicolor)",
     },
     price: {
-      mrp: 499,
-      cost: 166,
+      mrp: 49,
+      cost: 16,
       discount: "66%",
     },
     description:
@@ -67,8 +67,8 @@ export const products = [
       longTitle: "Molife Sense 500 Smartwatch  (Black Strap, Freesize)",
     },
     price: {
-      mrp: 6999,
-      cost: 4049,
+      mrp: 699,
+      cost: 404,
       discount: "42%",
     },
     description:
@@ -86,12 +86,12 @@ export const products = [
       longTitle: "Nova Professional NHP 8220 Hair Dryer  (1800 W, Multicolor)",
     },
     price: {
-      mrp: 1899,
-      cost: 1124,
+      mrp: 189,
+      cost: 112,
       discount: "40%",
     },
     description: "",
-    discount: "From €499",
+    discount: "From €49",
     tagline: "Kubra, Nova & more",
   },
 ];
