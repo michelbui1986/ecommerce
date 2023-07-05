@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 
 import { Divider } from "@mui/material";
 import "./cart.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, NavLink } from "react-router-dom";
 import { LoginContext } from "../context/ContextProvider";
 
 const Cart = () => {
@@ -21,7 +21,7 @@ const Cart = () => {
     });
     const data = await res.json();
     // console.log(res);
-    // console.log("data:",data)
+    console.log("data from cart:",data)
     setIndedata(data);
     // console.log(inddata.title.shortTitle);
   };
@@ -74,7 +74,9 @@ const addToCart = async (id) => {
                 onClick={() => addToCart(inddata.id)}>
                 Add to Cart
               </button>
-              <button className="cart_btn1">Buy now</button>
+              <NavLink to="/buynow">
+                <button className="cart_btn1">Buy now</button>
+              </NavLink>
             </div>
           </div>
           <div className="right_cart">

@@ -3,12 +3,12 @@ import "./signUp.css";
 import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { LoginContext } from "../context/ContextProvider";
+import { LoginContext } from "../context/ContextProvider";
 
 
 const SignIn = () => {
 
-  // const { account, setAccount } = useContext(LoginContext);
+  const { account, setAccount } = useContext(LoginContext);
 
   const [logData, setLogData] = useState({
     email: "",
@@ -43,7 +43,7 @@ const sendData = async (e) => {
       });
     } else {
       console.log("data valid");
-      // setAccount(data);
+      setAccount(data);
       setLogData({ ...logData, data, email: "", password: "" });
       toast.success("Login Successfully done 😃!", {
         position: "top-center",

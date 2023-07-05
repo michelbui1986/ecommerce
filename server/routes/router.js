@@ -142,7 +142,7 @@ router.get("/getproductsone/:id", async (req, res) => {
   }
 });
 
-// remove iteam from the cart
+// remove item from the cart
 
 router.get("/remove/:id", authenticate, async (req, res) => {
   try {
@@ -158,6 +158,22 @@ router.get("/remove/:id", authenticate, async (req, res) => {
   } catch (error) {
     console.log(error + "jwt provide then remove");
     res.status(400).json(error);
+  }
+});
+
+// for user log out
+router.get("/logout", authenticate, async (req, res) => {
+  try {
+    req.rootUser.tokens = req.rootUser.tokens.filter((curelem) => {
+      return curelem.token !== req.token;
+    });
+
+    res.clearCookie("eccomerce", { path: "/" });
+    req.rootUser.save();
+    res.status(201).json(req.rootUser.tokens);
+    console.log("user log out");
+  } catch (error) {
+    console.log(error + "jwt provide then logout");
   }
 });
 
