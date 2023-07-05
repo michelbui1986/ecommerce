@@ -142,7 +142,7 @@ const Navbar = () => {
           </IconButton>
           {/* here define the right header */}
           <Drawer open={dropen} onClose={handleClosedr}>
-            <RightHeader logclose={logoutuser} />
+            <RightHeader logclose={handleClosedr} logoutuser={logoutuser} />
           </Drawer>
           <div className="navlogo">
             <NavLink to="/">

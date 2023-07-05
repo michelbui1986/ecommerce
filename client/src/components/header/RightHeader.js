@@ -19,7 +19,7 @@ const usestyle = makeStyles({
   },
 });
 
-const RightHeader = ({ userlog, logclose }) => {
+const RightHeader = ({ logoutuser, logclose }) => {
   const imgd = "/france.png";
 
   const { account, setAccount } = useContext(LoginContext);
@@ -63,13 +63,12 @@ const RightHeader = ({ userlog, logclose }) => {
         </div>
 
         {account ? (
-          <div className="flag">
+          <div
+            className="flag"
+            onClick={() => logoutuser()}
+            style={{ cursor: "pointer" }}>
             <LogoutIcon style={{ fontSize: 16, marginRight: 4 }} />
-            <h3
-              onClick={() => logclose()}
-              style={{ cursor: "pointer", fontWeight: 500, fontSize: 16 }}>
-              Log Out
-            </h3>
+            <h3 style={{ fontWeight: 500, fontSize: 16 }}>Log Out</h3>
           </div>
         ) : (
           <NavLink to="/login">Sign in</NavLink>
